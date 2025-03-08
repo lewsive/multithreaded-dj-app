@@ -1,0 +1,56 @@
+[1/2] "/Users/noahcoe/projects/dj app/vcpkg/downloads/tools/cmake-3.30.1-osx/cmake-3.30.1-macos-universal/CMake.app/Contents/bin/cmake" -E chdir ".." "/Users/noahcoe/projects/dj app/vcpkg/downloads/tools/cmake-3.30.1-osx/cmake-3.30.1-macos-universal/CMake.app/Contents/bin/cmake" "/Users/noahcoe/projects/dj app/vcpkg/installed/arm64-osx/share/vcpkg-cmake-get-vars/cmake_get_vars" "-G" "Ninja" "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_INSTALL_PREFIX=/Users/noahcoe/projects/dj app/vcpkg/packages/openssl_arm64-osx" "-DFETCHCONTENT_FULLY_DISCONNECTED=ON" "-DCMAKE_MAKE_PROGRAM=/opt/homebrew/bin/ninja" "-DCMAKE_SYSTEM_NAME=Darwin" "-DBUILD_SHARED_LIBS=OFF" "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/Users/noahcoe/projects/dj app/vcpkg/scripts/toolchains/osx.cmake" "-DVCPKG_TARGET_TRIPLET=arm64-osx" "-DVCPKG_SET_CHARSET_FLAG=ON" "-DVCPKG_PLATFORM_TOOLSET=external" "-DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY=ON" "-DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=TRUE" "-DCMAKE_VERBOSE_MAKEFILE=ON" "-DVCPKG_APPLOCAL_DEPS=OFF" "-DCMAKE_TOOLCHAIN_FILE=/Users/noahcoe/projects/dj app/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION=ON" "-DVCPKG_CXX_FLAGS=" "-DVCPKG_CXX_FLAGS_RELEASE=" "-DVCPKG_CXX_FLAGS_DEBUG=" "-DVCPKG_C_FLAGS=" "-DVCPKG_C_FLAGS_RELEASE=" "-DVCPKG_C_FLAGS_DEBUG=" "-DVCPKG_CRT_LINKAGE=dynamic" "-DVCPKG_LINKER_FLAGS=" "-DVCPKG_LINKER_FLAGS_RELEASE=" "-DVCPKG_LINKER_FLAGS_DEBUG=" "-DVCPKG_TARGET_ARCHITECTURE=arm64" "-DCMAKE_INSTALL_LIBDIR:STRING=lib" "-DCMAKE_INSTALL_BINDIR:STRING=bin" "-D_VCPKG_ROOT_DIR=/Users/noahcoe/projects/dj app/vcpkg" "-D_VCPKG_INSTALLED_DIR=/Users/noahcoe/projects/dj app/vcpkg/installed" "-DVCPKG_MANIFEST_INSTALL=OFF" "-DCMAKE_OSX_ARCHITECTURES=arm64" "-DVCPKG_OUTPUT_FILE:PATH=/Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/cmake-get-vars-arm64-osx-rel.cmake.log"
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is AppleClang 16.0.0.16000026
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    BUILD_SHARED_LIBS
+    CMAKE_INSTALL_BINDIR
+    CMAKE_INSTALL_LIBDIR
+    FETCHCONTENT_FULLY_DISCONNECTED
+    VCPKG_PLATFORM_TOOLSET
+    VCPKG_SET_CHARSET_FLAG
+    _VCPKG_ROOT_DIR
+
+
+-- Build files have been written to: /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/arm64-osx-rel
+[2/2] "/Users/noahcoe/projects/dj app/vcpkg/downloads/tools/cmake-3.30.1-osx/cmake-3.30.1-macos-universal/CMake.app/Contents/bin/cmake" -E chdir "../../arm64-osx-dbg" "/Users/noahcoe/projects/dj app/vcpkg/downloads/tools/cmake-3.30.1-osx/cmake-3.30.1-macos-universal/CMake.app/Contents/bin/cmake" "/Users/noahcoe/projects/dj app/vcpkg/installed/arm64-osx/share/vcpkg-cmake-get-vars/cmake_get_vars" "-G" "Ninja" "-DCMAKE_BUILD_TYPE=Debug" "-DCMAKE_INSTALL_PREFIX=/Users/noahcoe/projects/dj app/vcpkg/packages/openssl_arm64-osx/debug" "-DFETCHCONTENT_FULLY_DISCONNECTED=ON" "-DCMAKE_MAKE_PROGRAM=/opt/homebrew/bin/ninja" "-DCMAKE_SYSTEM_NAME=Darwin" "-DBUILD_SHARED_LIBS=OFF" "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/Users/noahcoe/projects/dj app/vcpkg/scripts/toolchains/osx.cmake" "-DVCPKG_TARGET_TRIPLET=arm64-osx" "-DVCPKG_SET_CHARSET_FLAG=ON" "-DVCPKG_PLATFORM_TOOLSET=external" "-DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY=ON" "-DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=TRUE" "-DCMAKE_VERBOSE_MAKEFILE=ON" "-DVCPKG_APPLOCAL_DEPS=OFF" "-DCMAKE_TOOLCHAIN_FILE=/Users/noahcoe/projects/dj app/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION=ON" "-DVCPKG_CXX_FLAGS=" "-DVCPKG_CXX_FLAGS_RELEASE=" "-DVCPKG_CXX_FLAGS_DEBUG=" "-DVCPKG_C_FLAGS=" "-DVCPKG_C_FLAGS_RELEASE=" "-DVCPKG_C_FLAGS_DEBUG=" "-DVCPKG_CRT_LINKAGE=dynamic" "-DVCPKG_LINKER_FLAGS=" "-DVCPKG_LINKER_FLAGS_RELEASE=" "-DVCPKG_LINKER_FLAGS_DEBUG=" "-DVCPKG_TARGET_ARCHITECTURE=arm64" "-DCMAKE_INSTALL_LIBDIR:STRING=lib" "-DCMAKE_INSTALL_BINDIR:STRING=bin" "-D_VCPKG_ROOT_DIR=/Users/noahcoe/projects/dj app/vcpkg" "-D_VCPKG_INSTALLED_DIR=/Users/noahcoe/projects/dj app/vcpkg/installed" "-DVCPKG_MANIFEST_INSTALL=OFF" "-DCMAKE_OSX_ARCHITECTURES=arm64" "-DVCPKG_OUTPUT_FILE:PATH=/Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/cmake-get-vars-arm64-osx-dbg.cmake.log"
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is AppleClang 16.0.0.16000026
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    BUILD_SHARED_LIBS
+    CMAKE_INSTALL_BINDIR
+    CMAKE_INSTALL_LIBDIR
+    FETCHCONTENT_FULLY_DISCONNECTED
+    VCPKG_PLATFORM_TOOLSET
+    VCPKG_SET_CHARSET_FLAG
+    _VCPKG_ROOT_DIR
+
+
+-- Build files have been written to: /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/arm64-osx-dbg

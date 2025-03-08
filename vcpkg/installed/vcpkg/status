@@ -1,0 +1,81 @@
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 0f64c3d26e35d6052f1f5372f110e626af4b9fc015dd10270dee5fba6aee3c39
+Status: install ok installed
+
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 9335d21c6279cb30f99acf691442bc15783ab872505e4f525ab31f9588ccc99b
+Status: install ok installed
+
+Package: zlib
+Version: 1.3.1
+Depends: vcpkg-cmake
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 96134b97b7413f5a502a21b48b964c4d9315a01a6f53283418bab2485e585ea3
+Description: A compression library
+Status: install ok installed
+
+Package: curl
+Version: 8.12.0
+Depends: vcpkg-cmake, vcpkg-cmake-config, zlib
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 4d99ef681ded0a2b4fda3b20243ff223038b854ef322814b6d2dbc3534b54b0d
+Description: A library for transferring data with URLs
+Default-Features: non-http, ssl
+Status: install ok installed
+
+Package: curl
+Feature: non-http
+Architecture: arm64-osx
+Multi-Arch: same
+Description: Enables protocols beyond HTTP/HTTPS/HTTP2
+Status: install ok installed
+
+Package: curl
+Feature: sectransp
+Architecture: arm64-osx
+Multi-Arch: same
+Description: SSL support (sectransp)
+Status: install ok installed
+
+Package: curl
+Feature: ssl
+Depends: curl
+Architecture: arm64-osx
+Multi-Arch: same
+Description: Default SSL backend
+Status: install ok installed
+
+Package: cpr
+Version: 1.11.1
+Depends: curl, vcpkg-cmake, vcpkg-cmake-config
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: ebcec0181ed8232336122693726af709cae1fcabca96cecc6e846248781f5057
+Description: C++ Requests is a simple wrapper around libcurl inspired by the excellent Python Requests project.
+Default-Features: ssl
+Status: install ok installed
+
+Package: cpr
+Feature: ssl
+Depends: curl
+Architecture: arm64-osx
+Multi-Arch: same
+Description: Enable SSL support
+Status: install ok installed
+
+Package: vcpkg-cmake-get-vars
+Version: 2024-09-22
+Depends: vcpkg-cmake
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 5a2d442ae79eac3a92d2795236bc3eb021887b592b6d16add4db14193f02154d
+Status: install ok installed
+

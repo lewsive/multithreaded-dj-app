@@ -1,0 +1,2 @@
+include("${CMAKE_CURRENT_LIST_DIR}/cmake-vars-arm64-osx-rel.cmake.log")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake-vars-arm64-osx-dbg.cmake.log")

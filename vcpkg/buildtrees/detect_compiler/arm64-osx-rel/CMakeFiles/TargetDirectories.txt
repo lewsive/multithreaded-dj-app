@@ -1,0 +1,2 @@
+/Users/noahcoe/projects/dj app/vcpkg/buildtrees/detect_compiler/arm64-osx-rel/CMakeFiles/edit_cache.dir
+/Users/noahcoe/projects/dj app/vcpkg/buildtrees/detect_compiler/arm64-osx-rel/CMakeFiles/rebuild_cache.dir

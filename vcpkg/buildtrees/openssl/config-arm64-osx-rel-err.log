@@ -1,0 +1,1 @@
++ /usr/bin/perl /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/src/nssl-3.4.0-26c53982ba.clean/Configure darwin64-arm64 enable-static-engine enable-capieng no-tests no-docs no-shared no-module no-apps --openssldir=/etc/ssl --libdir=lib --prefix=/Users/noahcoe/projects/dj app/vcpkg/installed/arm64-osx

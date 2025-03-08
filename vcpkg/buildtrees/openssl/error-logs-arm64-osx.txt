@@ -1,0 +1,1 @@
+/Users/noahcoe/projects/dj\ app/vcpkg/buildtrees/openssl/build-arm64-osx-dbg-err.log

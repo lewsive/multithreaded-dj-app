@@ -1,0 +1,31 @@
+# Compiler
+CXX = g++
+
+# Compiler flags
+CXXFLAGS = -std=c++20 $(INCLUDES)
+
+# Include and library paths for CPR, OpenSSL 3 (via Homebrew), and libcurl (via vcpkg)
+INCLUDES = -I/opt/homebrew/include/openssl -I./vcpkg/installed/arm64-osx/include -I./vcpkg/installed/arm64-osx/include/curl
+LIBS = -L/opt/homebrew/opt/openssl@3/lib -L./vcpkg/installed/arm64-osx/lib -lcpr -lssl -lcrypto -lpthread -lcurl
+
+
+# Target executable
+TARGET = main
+
+# Source files
+SRCS = main.cpp
+
+# Object files
+OBJS = $(SRCS:.cpp=.o)
+
+# Build target
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LIBS)
+
+# Compile source files into object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean up build files
+clean:
+	rm -f $(TARGET) $(OBJS)

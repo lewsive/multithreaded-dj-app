@@ -1,0 +1,40 @@
+-- Using cached openssl-openssl-openssl-3.4.0.tar.gz
+-- Cleaning sources at /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/src/nssl-3.4.0-26c53982ba.clean. Use --editable to skip cleaning for the packages you specify.
+-- Extracting source /Users/noahcoe/projects/dj app/vcpkg/downloads/openssl-openssl-openssl-3.4.0.tar.gz
+-- Applying patch cmake-config.patch
+-- Applying patch command-line-length.patch
+-- Applying patch mkbuildinf.diff
+-- Applying patch script-prefix.patch
+-- Applying patch asm-armcap.patch
+-- Applying patch windows/install-layout.patch
+-- Applying patch windows/install-pdbs.patch
+-- Applying patch unix/android-cc.patch
+-- Applying patch unix/move-openssldir.patch
+-- Applying patch unix/no-empty-dirs.patch
+-- Applying patch unix/no-static-libs-for-shared.patch
+-- Using source at /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/src/nssl-3.4.0-26c53982ba.clean
+-- Found external ninja('1.12.1').
+-- Getting CMake variables for arm64-osx
+-- Getting CMake variables for arm64-osx-dbg
+-- Getting CMake variables for arm64-osx-rel
+-- Warning: Paths with embedded space may be handled incorrectly by configure:
+   /Users/noahcoe/projects/dj app/vcpkg/packages/openssl_arm64-osx
+   /Users/noahcoe/projects/dj app/vcpkg/installed/arm64-osx
+   Please move the path to one without whitespaces!
+-- Configuring arm64-osx-dbg
+-- Configuring arm64-osx-rel
+-- Building arm64-osx-dbg
+CMake Error at scripts/cmake/vcpkg_execute_build_process.cmake:134 (message):
+    Command failed: /Library/Developer/CommandLineTools/usr/bin/make V=1 -j 9 -f Makefile build_sw
+    Working Directory: /Users/noahcoe/projects/dj app/vcpkg/buildtrees/openssl/arm64-osx-dbg/
+    See logs for more information:
+      /Users/noahcoe/projects/dj\ app/vcpkg/buildtrees/openssl/build-arm64-osx-dbg-err.log
+
+Call Stack (most recent call first):
+  scripts/cmake/vcpkg_build_make.cmake:136 (vcpkg_execute_build_process)
+  scripts/cmake/vcpkg_install_make.cmake:2 (vcpkg_build_make)
+  ports/openssl/unix/portfile.cmake:119 (vcpkg_install_make)
+  ports/openssl/portfile.cmake:73 (include)
+  scripts/ports.cmake:196 (include)
+
+

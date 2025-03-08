@@ -1,0 +1,5 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: arm64-osx
+Multi-Arch: same
+Abi: 9335d21c6279cb30f99acf691442bc15783ab872505e4f525ab31f9588ccc99b
