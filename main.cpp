@@ -8,10 +8,21 @@
 #include <mutex>
 #include "tinyfiledialogs.h"
 #include <portaudio.h>
+#include <chrono>
+#include <condition_variable>
+#include <queue>
 
 namespace fs = std::filesystem;
 
 std::mutex outputMutex;
+std::mutex bpmMutex;
+std::condition_variable cv;
+bool done = false;
+
+struct Task {
+    std::string filepath;
+    float bpm = 0.0f;
+};
 
 std::vector<int> detectPeaks(const std::vector<float>& signal, float threshold, int minGap) {
     std::vector<int> peaks;
@@ -39,44 +50,8 @@ float calculateBpm(const std::vector<int>& peaks, int sampleRate) {
     return bpm;
 }
 
-void listWavFiles(const std::string& folderPath) {
-    for (const auto& entry : fs::directory_iterator(folderPath)) {
-        if (entry.path().extension() == ".wav" || entry.path().extension() == ".mp3") {
-            std::lock_guard<std::mutex> guard(outputMutex);
-            std::cout << "Found: " << entry.path().filename() << std::endl;
-        }
-    }
-}
-
-void testFileReading(const std::string& filepath) {
-    SF_INFO sfinfo;
-    SNDFILE* file = sf_open(filepath.c_str(), SFM_READ, &sfinfo);
-
-    if (!file) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "Error opening file: " << filepath << std::endl;
-        std::cerr << "Libsndfile error: " << sf_strerror(file) << std::endl;
-        return;
-    }
-
-    std::cout << "File opened successfully: " << filepath << std::endl;
-
-    std::vector<float> samples(sfinfo.frames * sfinfo.channels);
-    if (sf_readf_float(file, samples.data(), sfinfo.frames) != sfinfo.frames) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "Error reading samples from " << filepath << std::endl;
-        sf_close(file);
-        return;
-    }
-
-    std::cout << "Samples read successfully: " << filepath << std::endl;
-    sf_close(file);
-}
-
 float detectBpm(const std::string& filepath) {
-    if (!fs::exists(filepath)) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "File not found: " << filepath << std::endl;
+    if (!fs::exists(filepath) || (filepath.substr(filepath.find_last_of(".")) != ".wav" && filepath.substr(filepath.find_last_of(".")) != ".mp3")) {
         return 0.0f;
     }
 
@@ -84,25 +59,11 @@ float detectBpm(const std::string& filepath) {
     SNDFILE* file = sf_open(filepath.c_str(), SFM_READ, &sfinfo);
 
     if (!file) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "Error opening file: " << filepath << std::endl;
-        std::cerr << "Libsndfile error: " << sf_strerror(file) << std::endl;
-        return 0.0f;
-    }
-
-    std::cout << "Processing file: " << filepath << std::endl;
-
-    if (sfinfo.frames == 0 || sfinfo.channels == 0) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "Invalid file: " << filepath << " (frames or channels is zero)" << std::endl;
-        sf_close(file);
         return 0.0f;
     }
 
     std::vector<float> samples(sfinfo.frames * sfinfo.channels);
     if (sf_readf_float(file, samples.data(), sfinfo.frames) != sfinfo.frames) {
-        std::lock_guard<std::mutex> guard(outputMutex);
-        std::cerr << "Error reading samples from " << filepath << std::endl;
         sf_close(file);
         return 0.0f;
     }
@@ -128,14 +89,9 @@ float detectBpm(const std::string& filepath) {
 
     float threshold = 0.05f;
     int minGap = 500;
-
     std::vector<int> peaks = detectPeaks(envelope, threshold, minGap);
 
-    float bpm = calculateBpm(peaks, sfinfo.samplerate) / 35;
-
-    std::lock_guard<std::mutex> guard(outputMutex);
-
-    return bpm;
+    return calculateBpm(peaks, sfinfo.samplerate) / 35;
 }
 
 void playSong(const std::string& filepath) {
@@ -143,37 +99,69 @@ void playSong(const std::string& filepath) {
     std::cout << "Playing: " << filepath << std::endl;
 }
 
+void workerThread(std::queue<std::string>& taskQueue, std::vector<Task>& results) {
+    while (true) {
+        std::string filepath;
+        {
+            std::lock_guard<std::mutex> guard(bpmMutex);
+            if (taskQueue.empty()) {
+                break;
+            }
+            filepath = taskQueue.front();
+            taskQueue.pop();
+        }
+
+        float bpm = detectBpm(filepath);
+        if (bpm > 0.0f) {
+            std::lock_guard<std::mutex> guard(bpmMutex);
+            results.push_back({filepath, bpm});
+        }
+    }
+}
+
 int main() {
     const char* folder = tinyfd_selectFolderDialog("Select Folder", "");
-
     if (folder == nullptr) {
         std::cerr << "No folder selected." << std::endl;
         return 1;
     }
-
     std::string folderPath = folder;
+    auto start = std::chrono::high_resolution_clock::now();
 
-    std::vector<std::pair<std::string, float>> bpmResults;
+    std::queue<std::string> taskQueue;
+    std::vector<Task> bpmResults;
+    int numThreads = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
 
     for (const auto& entry : fs::directory_iterator(folderPath)) {
-        if (entry.path().extension() == ".wav" || entry.path().extension() == ".mp3") {
-            float bpm = detectBpm(entry.path().string());
-            if (bpm > 0.0f) {
-                bpmResults.push_back({entry.path().string(), bpm});
-            }
+        std::string extension = entry.path().extension().string();
+        if (extension == ".wav" || extension == ".mp3") {
+            taskQueue.push(entry.path().string());
         }
     }
 
-    std::sort(bpmResults.begin(), bpmResults.end(), [](const std::pair<std::string, float>& a, const std::pair<std::string, float>& b) {
-        return a.second < b.second;
+    for (int i = 0; i < numThreads; ++i) {
+        threads.emplace_back(workerThread, std::ref(taskQueue), std::ref(bpmResults));
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    std::sort(bpmResults.begin(), bpmResults.end(), [](const Task& a, const Task& b) {
+        return a.bpm < b.bpm;
     });
 
     for (size_t i = 0; i < bpmResults.size(); ++i) {
         if (i + 1 < bpmResults.size()) {
-            std::cout << "Next song: " << bpmResults[i + 1].first << " - BPM: " << bpmResults[i + 1].second << std::endl;
+            std::cout << "Next song: " << bpmResults[i + 1].filepath << " - BPM: " << bpmResults[i + 1].bpm << std::endl;
         }
-        playSong(bpmResults[i].first);
+        playSong(bpmResults[i].filepath);
     }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    std::cout << "Program runtime: " << duration.count() << " seconds" << std::endl;
 
     return 0;
 }
