@@ -1,3 +1,13 @@
+NEEDED DEPENDENCIES (USE vcpkg)
+If you're targeting 64-bit Windows, open your terminal in the vcpkg directory and run:
+
+bash:
+.\vcpkg install portaudio:x64-windows
+.\vcpkg install libsndfile:x64-windows
+
+
+
+
 ## Official version hosted at https://sourceforge.net/projects/tinyfiledialogs/
 
 This version is _not_ official and is currently updated as required by https://github.com/haxelime/lime only
